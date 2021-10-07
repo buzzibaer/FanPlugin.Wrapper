@@ -53,6 +53,8 @@
     <Content Include="docmedia\install5.png" />
     <Content Include="docmedia\install6.png" />
     <Content Include="docmedia\install7.png" />
+    <Content Include="docmedia\install8.png" />
+    <Content Include="docmedia\install9.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
