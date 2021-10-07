@@ -17,7 +17,7 @@ So if you going to load up the table "DarkPrinzess" a topper video is shown on t
 ## The Fan
 I bought this device here: [AliExpress Link] (https://de.aliexpress.com/item/4000579865125.html?spm=a2g0s.9042311.0.0.659e4c4dMc6T5K)
 
-![explain pic](https://github.com/buzzibaer/3dhfrc/blob/main/docmedia/install5.png)
+![explain pic](https://github.com/buzzibaer/FanPlugin.Wrapper/blob/main/docmedia/install5.png)
 
 But it seems kindly generic, so maybe it works also for other models
 
@@ -29,7 +29,7 @@ this is needed if you want to have still internet for your cab
 the fan is pushing a standard gateway to your wlan adapter via dhcp and this is a problem if you do have ethernet or a second wlan adapter up and running for internet acess.
 we need to get rid of the gateway from the fan
 
-![explain pic](https://github.com/buzzibaer/3dhfrc/blob/main/docmedia/install3.png)
+![explain pic](https://github.com/buzzibaer/FanPlugin.Wrapper/blob/main/docmedia/install3.png)
 
 Just disable DHCP on the WLAN Chip and set it to manual
 
@@ -65,7 +65,7 @@ It will then select a specific vid / pic on your fan for this table
 Yes, this is happening due to the FAN will propagate a public WLAN.
 Windows 10 will not connect automaticly to public wlan, even if autoconncet is enabled.
 See:
-![explain pic](https://github.com/buzzibaer/3dhfrc/blob/main/docmedia/install4.png)
+![explain pic](https://github.com/buzzibaer/FanPlugin.Wrapper/blob/main/docmedia/install4.png)
 Source = https://appuals.com/windows-10-will-not-connect-to-wifi-automatically/
 
 ## How to install
