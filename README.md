@@ -69,6 +69,8 @@ See:
 Source = https://appuals.com/windows-10-will-not-connect-to-wifi-automatically/
 
 ## How to install
+
+### Reg DLL
 Download the latest DLL File from = https://github.com/buzzibaer/FanPlugin.Wrapper/releases
 Put it into any folder you like (e.g. c:\FanPlugin\)
 
@@ -85,6 +87,14 @@ Go into your command and register the DLL like:
 
 ![explain pic](https://github.com/buzzibaer/FanPlugin.Wrapper/blob/main/docmedia/install8.png)
 
-''bash
+'''bash
 C:\Windows\Microsoft.NET\Framework\v4.0.30319\RegAsm.exe FanPlugin.Wrapper.dll /codebase
-''
+'''
+
+### Install pupscript
+Download the Pupscript here = https://github.com/buzzibaer/FanPlugin.Wrapper/blob/main/pupscript/pupscript_js.pup
+
+Put it in your PupPack Root Folder of your choise.
+
+Edit the Script for the bin file you want to select on your fan.
+Enjoy!
