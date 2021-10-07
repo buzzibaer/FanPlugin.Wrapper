@@ -1,0 +1,29 @@
+    //'********PupB2S Scripting JSCRIPT
+
+
+    function StartUp() {    
+         //var myMsgBox=new ActiveXObject("wscript.shell");
+         //myMsgBox.Popup ("hello There");
+		 
+		 var fan = new ActiveXObject("FanPlugin.Wrapper.Fan");
+		 fan.selectSingleVideoPlaybackMode();
+		 fan.playVideoWithId(3);
+		 
+    }
+
+    function PuPClose() {
+    }
+
+// only have this function if needed as it will take up resources.  you will need to remove the xxxx in function name to enable it every second
+    function TimerXXXXSecond() {    
+   	var myMsgBox=new ActiveXObject("wscript.shell");
+    myMsgBox.Popup ("every second");	
+   }
+
+	
+//*********************  ALL PUP/ROM EVENTS HERE    Like "D",100,1   would be d100=1
+    function GetEvent(eType, eIndex, eValue) {  	
+	//var myMsgBox=new ActiveXObject("wscript.shell");
+    //myMsgBox.Popup (eType +" "+ eIndex +" "+ eValue);
+}
+
