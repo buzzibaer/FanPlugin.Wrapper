@@ -73,4 +73,18 @@ Download the latest DLL File from = https://github.com/buzzibaer/FanPlugin.Wrapp
 Put it into any folder you like (e.g. c:\FanPlugin\)
 
 Open up a cmd in admin mode
+
 ![explain pic](https://github.com/buzzibaer/FanPlugin.Wrapper/blob/main/docmedia/install6.png)
+
+find RegAsm.exe from your latest .NET on your Computer
+
+![explain pic](https://github.com/buzzibaer/FanPlugin.Wrapper/blob/main/docmedia/install7.png)
+
+
+Go into your command and register the DLL like:
+
+![explain pic](https://github.com/buzzibaer/FanPlugin.Wrapper/blob/main/docmedia/install8.png)
+
+''bash
+C:\Windows\Microsoft.NET\Framework\v4.0.30319\RegAsm.exe FanPlugin.Wrapper.dll /codebase
+''

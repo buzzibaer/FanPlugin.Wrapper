@@ -44,5 +44,15 @@
     <Compile Include="Fan.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="docmedia\install.png" />
+    <Content Include="docmedia\install2.png" />
+    <Content Include="docmedia\install3.png" />
+    <Content Include="docmedia\install4.png" />
+    <Content Include="docmedia\install5.png" />
+    <Content Include="docmedia\install6.png" />
+    <Content Include="docmedia\install7.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
