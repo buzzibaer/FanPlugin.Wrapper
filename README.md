@@ -97,4 +97,7 @@ Download the Pupscript here = https://github.com/buzzibaer/FanPlugin.Wrapper/blo
 Put it in your PupPack Root Folder of your choise.
 
 Edit the Script for the bin file you want to select on your fan.
+
+![explain pic](https://github.com/buzzibaer/FanPlugin.Wrapper/blob/main/docmedia/install9.png)
+
 Enjoy!
