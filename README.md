@@ -67,3 +67,10 @@ Windows 10 will not connect automaticly to public wlan, even if autoconncet is e
 See:
 ![explain pic](https://github.com/buzzibaer/3dhfrc/blob/main/docmedia/install4.png)
 Source = https://appuals.com/windows-10-will-not-connect-to-wifi-automatically/
+
+## How to install
+Download the latest DLL File from = https://github.com/buzzibaer/FanPlugin.Wrapper/releases
+Put it into any folder you like (e.g. c:\FanPlugin\)
+
+Open up a cmd in admin mode
+![explain pic](https://github.com/buzzibaer/3dhfrc/blob/main/docmedia/install4.png)
