@@ -53,12 +53,12 @@ Configuration of FAN and Dongle is described below.
 
 
 ## What does it do?
-This small cluecode application is getting a pinball table as commandline input and is than selection a corresponding pic / vid on the 3d holografic fan.
+This small cluecode application is getting a pinball table and is than selection a corresponding pic / vid on the 3d holografic fan.
 
 If you want to see it in action look here = https://youtu.be/gSEaMVhVHcs or here https://youtu.be/rK_Xfbv4QXQ
 
 ## How does it work?
-You can add this to your PinUpPopper Launch configuration for VPX and pass the table name as parameter to this commandline.
+You can add this to your PupPack Folder for VPX.
 It will then select a specific vid / pic on your fan for this table
 
 ## My PC will not connect automaticly to the FAN! Help!
