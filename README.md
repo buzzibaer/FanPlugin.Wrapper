@@ -73,4 +73,4 @@ Download the latest DLL File from = https://github.com/buzzibaer/FanPlugin.Wrapp
 Put it into any folder you like (e.g. c:\FanPlugin\)
 
 Open up a cmd in admin mode
-![explain pic](https://github.com/buzzibaer/3dhfrc/blob/main/docmedia/install4.png)
+![explain pic](https://github.com/buzzibaer/FanPlugin.Wrapper/blob/main/docmedia/install6.png)
