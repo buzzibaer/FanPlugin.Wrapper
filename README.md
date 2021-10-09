@@ -83,7 +83,8 @@ find RegAsm.exe from your latest .NET on your Computer
 ![explain pic](https://github.com/buzzibaer/FanPlugin.Wrapper/blob/main/docmedia/install7.png)
 
 
-Go into your command and register the DLL like:
+Go into your folder were your dll is.
+Open up a command shell command and register the DLL like:
 
 ![explain pic](https://github.com/buzzibaer/FanPlugin.Wrapper/blob/main/docmedia/install8.png)
 
