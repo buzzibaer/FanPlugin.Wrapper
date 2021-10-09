@@ -103,4 +103,8 @@ Edit the Script for the bin file you want to select on your fan.
 
 ![explain pic](https://github.com/buzzibaer/FanPlugin.Wrapper/blob/main/docmedia/install9.png)
 
+configure evnets for changing videos  
+  
+![explain pic](https://github.com/buzzibaer/FanPlugin.Wrapper/blob/main/docmedia/install9.png)
+
 Enjoy!
