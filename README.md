@@ -105,6 +105,6 @@ Edit the Script for the bin file you want to select on your fan.
 
 configure evnets for changing videos  
   
-![explain pic](https://github.com/buzzibaer/FanPlugin.Wrapper/blob/main/docmedia/install9.png)
+![explain pic](https://github.com/buzzibaer/FanPlugin.Wrapper/blob/main/docmedia/install10.png)
 
 Enjoy!
