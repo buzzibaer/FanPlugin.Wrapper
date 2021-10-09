@@ -87,7 +87,7 @@ Go into your command and register the DLL like:
 
 ![explain pic](https://github.com/buzzibaer/FanPlugin.Wrapper/blob/main/docmedia/install8.png)
 
-'''bash
+'''
 C:\Windows\Microsoft.NET\Framework\v4.0.30319\RegAsm.exe FanPlugin.Wrapper.dll /codebase
 '''
 
