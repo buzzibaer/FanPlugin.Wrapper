@@ -56,7 +56,9 @@ Configuration of FAN and Dongle is described below.
 This small cluecode application is getting a pinball table and is than selection a corresponding pic / vid on the 3d holografic fan.
 
 If you want to see it in action look here = https://youtu.be/gSEaMVhVHcs or here https://youtu.be/rK_Xfbv4QXQ
-
+  
+Or an update video with rom / pup events integration = https://youtu.be/YnqAcIEPP1M
+  
 ## How does it work?
 You can add this to your PupPack Folder for VPX.
 It will then select a specific vid / pic on your fan for this table
