@@ -14,6 +14,18 @@ The idea ist that if i am going to load up a specific pinball table the fan has 
 
 So if you going to load up the table "DarkPrinzess" a topper video is shown on the fan for ambiente purposes.
 
+
+## What does it do?
+This small cluecode application is getting a pinball table and is than selection a corresponding pic / vid on the 3d holografic fan.
+
+If you want to see it in action look here = https://youtu.be/gSEaMVhVHcs or here https://youtu.be/rK_Xfbv4QXQ
+  
+Or an update video with rom / pup events integration = https://youtu.be/YnqAcIEPP1M
+  
+## How does it work?
+You can add this to your PupPack Folder for VPX.
+It will then select a specific vid / pic on your fan for this table
+
 ## The Fan
 I bought this device here: [AliExpress Link] (https://de.aliexpress.com/item/4000579865125.html?spm=a2g0s.9042311.0.0.659e4c4dMc6T5K)
 
@@ -52,17 +64,6 @@ I bought a cheap usb wlan dongle for my cab windows pc and attaced this dongle e
 Configuration of FAN and Dongle is described below.
 
 
-## What does it do?
-This small cluecode application is getting a pinball table and is than selection a corresponding pic / vid on the 3d holografic fan.
-
-If you want to see it in action look here = https://youtu.be/gSEaMVhVHcs or here https://youtu.be/rK_Xfbv4QXQ
-  
-Or an update video with rom / pup events integration = https://youtu.be/YnqAcIEPP1M
-  
-## How does it work?
-You can add this to your PupPack Folder for VPX.
-It will then select a specific vid / pic on your fan for this table
-
 ## My PC will not connect automaticly to the FAN! Help!
 Yes, this is happening due to the FAN will propagate a public WLAN.
 Windows 10 will not connect automaticly to public wlan, even if autoconncet is enabled.
@@ -70,6 +71,16 @@ See:
 ![explain pic](https://github.com/buzzibaer/FanPlugin.Wrapper/blob/main/docmedia/install4.png)
 Source = https://appuals.com/windows-10-will-not-connect-to-wifi-automatically/
 
+## How to sort my files on the SD-Card / Problems with selection of file IDs
+
+  The files on the SD card of your fan have to be unique and identified by the program.
+  To avoid pitfalls, i recomend to go for a strict sort order.
+  The FAN itself trys to sort the filenames bitwhise and alphabeticly.
+  To keep a strict order i recommend to use 6 characters with numbers only.
+  Example = 000001.png
+  Trailing zeros are neccassary due to bytewhise comparison.
+![explain pic](https://github.com/buzzibaer/FanPlugin.Wrapper/blob/main/docmedia/install11.png)
+  
 ## How to install
 
 ### Reg DLL
