@@ -69,16 +69,23 @@ Yes, this is happening due to the FAN will propagate a public WLAN.
 Windows 10 will not connect automaticly to public wlan, even if autoconncet is enabled.
 See:
 ![explain pic](https://github.com/buzzibaer/FanPlugin.Wrapper/blob/main/docmedia/install4.png)
+  
 Source = https://appuals.com/windows-10-will-not-connect-to-wifi-automatically/
 
 ## How to sort my files on the SD-Card / Problems with selection of file IDs
 
   The files on the SD card of your fan have to be unique and identified by the program.
+  
   To avoid pitfalls, i recomend to go for a strict sort order.
+  
   The FAN itself trys to sort the filenames bitwhise and alphabeticly.
+  
   To keep a strict order i recommend to use 6 characters with numbers only.
+  
   Example = 000001.png
+  
   Trailing zeros are neccassary due to bytewhise comparison.
+  
 ![explain pic](https://github.com/buzzibaer/FanPlugin.Wrapper/blob/main/docmedia/install11.png)
   
 ## How to install
