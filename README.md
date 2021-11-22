@@ -125,4 +125,13 @@ configure evnets for changing videos
   
 ![explain pic](https://github.com/buzzibaer/FanPlugin.Wrapper/blob/main/docmedia/install10.png)
 
-Enjoy!
+
+### Ho to configure events
+
+  The easiest way is to have a look into the events from any Puppack.
+  There you can see what is already defined as events.
+  Get your information from there:
+  ![explain pic](https://github.com/buzzibaer/FanPlugin.Wrapper/blob/main/docmedia/install12.png)
+  
+  If you want to learn more about events of tables, you can always find them in Nailbusters documentation right here = https://www.nailbuster.com/wikipinup/doku.php?id=pup_capture
+  
