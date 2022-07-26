@@ -82,7 +82,7 @@ Source = https://appuals.com/windows-10-will-not-connect-to-wifi-automatically/
   
   To keep a strict order i recommend to use 6 characters with numbers only.
   
-  Example = 000001.png
+  Example = 000001.bin
   
   Trailing zeros are neccassary due to bytewhise comparison.
   
