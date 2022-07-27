@@ -140,5 +140,7 @@ configure evnets for changing videos
 ### Standalone UI
 
   I made a little Standalone UI for testing the Fan without anything else but just the fan.
+
   Have a look here >> https://github.com/buzzibaer/FanPlugin.Test/releases
+
   With that you can experiment if the funktions work well.
