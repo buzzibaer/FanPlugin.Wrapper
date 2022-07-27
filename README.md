@@ -135,3 +135,9 @@ configure evnets for changing videos
   
   If you want to learn more about events of tables, you can always find them in Nailbusters documentation right here = https://www.nailbuster.com/wikipinup/doku.php?id=pup_capture
   
+# Problems?
+
+## Standalone UI
+
+  I made a little Standalone UI for testing the Fan without anything else but just the fan.
+  Have a look here >> https://github.com/buzzibaer/FanPlugin.Test/releases
