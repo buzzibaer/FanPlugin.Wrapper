@@ -14,6 +14,18 @@ The idea ist that if i am going to load up a specific pinball table the fan has 
 
 So if you going to load up the table "DarkPrinzess" a topper video is shown on the fan for ambiente purposes.
 
+
+## What does it do?
+This small cluecode application is getting a pinball table and is than selection a corresponding pic / vid on the 3d holografic fan.
+
+If you want to see it in action look here = https://youtu.be/gSEaMVhVHcs or here https://youtu.be/rK_Xfbv4QXQ
+  
+Or an update video with rom / pup events integration = https://youtu.be/YnqAcIEPP1M
+  
+## How does it work?
+You can add this to your PupPack Folder for VPX.
+It will then select a specific vid / pic on your fan for this table
+
 ## The Fan
 I bought this device here: [AliExpress Link] (https://de.aliexpress.com/item/4000579865125.html?spm=a2g0s.9042311.0.0.659e4c4dMc6T5K)
 
@@ -52,22 +64,30 @@ I bought a cheap usb wlan dongle for my cab windows pc and attaced this dongle e
 Configuration of FAN and Dongle is described below.
 
 
-## What does it do?
-This small cluecode application is getting a pinball table and is than selection a corresponding pic / vid on the 3d holografic fan.
-
-If you want to see it in action look here = https://youtu.be/gSEaMVhVHcs or here https://youtu.be/rK_Xfbv4QXQ
-
-## How does it work?
-You can add this to your PupPack Folder for VPX.
-It will then select a specific vid / pic on your fan for this table
-
 ## My PC will not connect automaticly to the FAN! Help!
 Yes, this is happening due to the FAN will propagate a public WLAN.
 Windows 10 will not connect automaticly to public wlan, even if autoconncet is enabled.
 See:
-![explain pic](https://github.com/buzzibaer/FanPlugin.Wrapper/blob/main/docmedia/install4.png)
+> ![explain pic](https://github.com/buzzibaer/FanPlugin.Wrapper/blob/main/docmedia/install4.png)
+  
 Source = https://appuals.com/windows-10-will-not-connect-to-wifi-automatically/
 
+## How to sort my files on the SD-Card / Problems with selection of file IDs
+
+  The files on the SD card of your fan have to be unique and identified by the program.
+  
+  To avoid pitfalls, i recomend to go for a strict sort order.
+  
+  The FAN itself trys to sort the filenames bitwhise and alphabeticly.
+  
+  To keep a strict order i recommend to use 6 characters with numbers only.
+  
+  Example = 000001.bin
+  
+  Trailing zeros are neccassary due to bytewhise comparison.
+  
+![explain pic](https://github.com/buzzibaer/FanPlugin.Wrapper/blob/main/docmedia/install11.png)
+  
 ## How to install
 
 ### Reg DLL
@@ -83,11 +103,12 @@ find RegAsm.exe from your latest .NET on your Computer
 ![explain pic](https://github.com/buzzibaer/FanPlugin.Wrapper/blob/main/docmedia/install7.png)
 
 
-Go into your command and register the DLL like:
+Go into your folder were your dll is.
+Open up a command shell command and register the DLL like:
 
 ![explain pic](https://github.com/buzzibaer/FanPlugin.Wrapper/blob/main/docmedia/install8.png)
 
-'''bash
+'''
 C:\Windows\Microsoft.NET\Framework\v4.0.30319\RegAsm.exe FanPlugin.Wrapper.dll /codebase
 '''
 
@@ -100,4 +121,26 @@ Edit the Script for the bin file you want to select on your fan.
 
 ![explain pic](https://github.com/buzzibaer/FanPlugin.Wrapper/blob/main/docmedia/install9.png)
 
-Enjoy!
+configure evnets for changing videos  
+  
+![explain pic](https://github.com/buzzibaer/FanPlugin.Wrapper/blob/main/docmedia/install10.png)
+
+
+### Ho to configure events
+
+  The easiest way is to have a look into the events from any Puppack.
+  There you can see what is already defined as events.
+  Get your information from there:
+  ![explain pic](https://github.com/buzzibaer/FanPlugin.Wrapper/blob/main/docmedia/install12.png)
+  
+  If you want to learn more about events of tables, you can always find them in Nailbusters documentation right here = https://www.nailbuster.com/wikipinup/doku.php?id=pup_capture
+  
+## Problems?
+
+### Standalone UI
+
+  I made a little Standalone UI for testing the Fan without anything else but just the fan.
+
+  Have a look here >> https://github.com/buzzibaer/FanPlugin.Test/releases
+
+  With that you can experiment if the funktions work well.

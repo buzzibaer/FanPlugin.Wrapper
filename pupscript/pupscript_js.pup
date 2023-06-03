@@ -25,5 +25,15 @@
     function GetEvent(eType, eIndex, eValue) {  	
 	//var myMsgBox=new ActiveXObject("wscript.shell");
     //myMsgBox.Popup (eType +" "+ eIndex +" "+ eValue);
+    
+    	if (eIndex == 7 && eType == "D" && eValue == 1) {
+		var fan = new ActiveXObject("FanPlugin.Wrapper.Fan");
+		 fan.playVideoWithId(5);
+	};
+	
+	if (eIndex == 0 && eType == "D" && eValue == 1) {
+		var fan = new ActiveXObject("FanPlugin.Wrapper.Fan");
+		 fan.playVideoWithId(6);
+	};
 }
 
