@@ -29,7 +29,7 @@ It will then select a specific vid / pic on your fan for this table
 ## The Fan
 I bought this device here: [AliExpress Link] (https://de.aliexpress.com/item/4000579865125.html?spm=a2g0s.9042311.0.0.659e4c4dMc6T5K)
 
-![explain pic](https://github.com/buzzibaer/FanPlugin.Wrapper/blob/main/docmedia/install5.png)
+![explain pic](https://github.com/buzzibaer/FanPlugin.Wrapper/blob/main/docmedia/install5.png) (Not available any more with this link)
 
 But it seems kindly generic, so maybe it works also for other models
 
