@@ -1,13 +1,12 @@
 ﻿using System;
 using System.IO.MemoryMappedFiles;
 using System.Net.Sockets;
+using System.Text;
 
 namespace FanPlugin.Wrapper
 {
     public class FanV3
     {
-        
-           
         // Version 3 FAN
 
         private static String playModelSingle = "36";
@@ -18,8 +17,15 @@ namespace FanPlugin.Wrapper
         private static String end = "a4a8c2e3";
         private static String sendAPInfo = "99";
         private static  String contentDefaultValue = "00";
-        public static String DEFUALT_SERVER_IP = "192.168.4.1";
-	    public static int DEFUALT_SERVER_PORT = 5233;
+
+        // Configurables (public pour permettre override depuis l'extérieur)
+        public static string ServerIp { get; set; } = "192.168.4.1";
+        public static int ServerPort { get; set; } = 5233;
+        /// <summary>Timeout de connexion en millisecondes</summary>
+        public static int ConnectTimeoutMs { get; set; } = 3000;
+        /// <summary>Timeout de lecture/écriture socket en millisecondes</summary>
+        public static int SocketTimeoutMs { get; set; } = 3000;
+
         private static String getFileList = "38";
         private static String playlast = "33";
         private static String powerOff = "94";
@@ -33,7 +39,10 @@ namespace FanPlugin.Wrapper
 
         public string playVideoWithId(String videoID)
         {
-            
+            if (!int.TryParse(videoID, out int vid))
+            {
+                return "Invalid videoID";
+            }
         
             SharedMemory<SharedData> shmem = new SharedMemory<SharedData>("Shem",32);
 
@@ -44,33 +53,29 @@ namespace FanPlugin.Wrapper
             // Read from shared memory
             data = shmem.Data;
 
-
             // Change some data
             data.last = data.actual;
-            data.actual = int.Parse(videoID);
+            data.actual = vid;
              
-
             // Write back to shared memory
             shmem.Data = data;            
 
             // Close shared memory
             shmem.Close();
 
-            String command = "c31c" + playFile + DEFAULT_HAS_2_DATA_LENTH + intTo2Str(int.Parse(videoID)) + end;
+            String command = "c31c" + playFile + DEFAULT_HAS_2_DATA_LENTH + intTo2Str(vid) + end;
             connect(command);
 
             return "NEW ID = " + data.actual + " Old ID = " + data.last;
         }
 
         public String selectSingleVideoPlaybackMode() { 
-
             String command = "c31c" + playModelSingle + DEFAULT_NO_DATA_LENTH + end;            
             return connect(command);
         }
 
         public String selectLoopVideoPlaybackMode()
         {
-
             String command = "c31c" + playLoop + DEFAULT_NO_DATA_LENTH + end;
             return connect(command);
         }
@@ -86,27 +91,23 @@ namespace FanPlugin.Wrapper
         }
 
         public String playLastFromFan() {
-
             String command = "c31c" + playlast + DEFAULT_NO_DATA_LENTH + end;
             return connect(command);            
         }
 
         public String sendPowerOn()
         {
-
             String command = "c31c" + powerOn + DEFAULT_NO_DATA_LENTH + end;
             return connect(command);
         }
 
         public String sendPowerOff()
         {
-
             String command = "c31c" + powerOff + DEFAULT_NO_DATA_LENTH + end;
             return connect(command);
         }
 
         public String playOldFromFan() {
-
             SharedMemory<SharedData> shmem = new SharedMemory<SharedData>("Shem", 32);
 
             if (!shmem.Open()) return "fail";
@@ -147,122 +148,82 @@ namespace FanPlugin.Wrapper
         {
             try
             {
-                // Create a TcpClient.
-                // Note, for this client to work you need to have a TcpServer
-                // connected to the same address as specified by the server, port
-                // combination.
-                Int32 port = DEFUALT_SERVER_PORT;
-                System.Net.Sockets.TcpClient client = new TcpClient(DEFUALT_SERVER_IP, port);
+                using (var client = new TcpClient())
+                {
+                    var connectTask = client.ConnectAsync(ServerIp, ServerPort);
+                    bool connected = connectTask.Wait(ConnectTimeoutMs);
+                    if (!connected || !client.Connected)
+                    {
+                        return "Connection timeout or refused";
+                    }
 
-                // Translate the passed message into ASCII and store it as a Byte array.
-                Byte[] data = System.Text.Encoding.ASCII.GetBytes(message);
+                    client.SendTimeout = SocketTimeoutMs;
+                    client.ReceiveTimeout = SocketTimeoutMs;
 
-                // Get a client stream for reading and writing.
-                //  Stream stream = client.GetStream();
-
-                NetworkStream stream = client.GetStream();
-
-                // Send the message to the connected TcpServer.
-                stream.Write(data, 0, data.Length);
-
-                // Console.WriteLine("Sent: {0}", message);
-
-                // Receive the TcpServer.response.
-
-                // Buffer to store the response bytes.
-                //data = new Byte[256];
-
-                // String to store the response ASCII representation.
-                //String responseData = String.Empty;
-
-                // Read the first batch of the TcpServer response bytes.
-                //Int32 bytes = stream.Read(data, 0, data.Length);
-                //responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
-                //Console.WriteLine("Received: {0}", responseData);
-
-                // Close everything.
-                stream.Close();
-                client.Close();
+                    using (NetworkStream stream = client.GetStream())
+                    {
+                        Byte[] data = Encoding.ASCII.GetBytes(message);
+                        stream.Write(data, 0, data.Length);
+                        // Not reading response here
+                    }
+                }
             }
             catch (ArgumentNullException e)
             {
-                // Console.WriteLine("ArgumentNullException: {0}", e);
                 return e.Message;
             }
             catch (SocketException e)
             {
-                // Console.WriteLine("SocketException: {0}", e);
+                return e.Message;
+            }
+            catch (Exception e)
+            {
                 return e.Message;
             }
 
-           // Console.WriteLine("\n Press Enter to continue...");
-           // Console.Read();
-
-            return "Command successfull";
+            return "Command successful";
         }
-
 
         private static String connectRead(String message)
         {
             try
             {
-                // Create a TcpClient.
-                // Note, for this client to work you need to have a TcpServer
-                // connected to the same address as specified by the server, port
-                // combination.
-                Int32 port = DEFUALT_SERVER_PORT;
-                System.Net.Sockets.TcpClient client = new TcpClient(DEFUALT_SERVER_IP, port);
+                using (var client = new TcpClient())
+                {
+                    var connectTask = client.ConnectAsync(ServerIp, ServerPort);
+                    bool connected = connectTask.Wait(ConnectTimeoutMs);
+                    if (!connected || !client.Connected)
+                    {
+                        return "Connection timeout or refused";
+                    }
 
-                // Translate the passed message into ASCII and store it as a Byte array.
-                Byte[] data = System.Text.Encoding.ASCII.GetBytes(message);
+                    client.SendTimeout = SocketTimeoutMs;
+                    client.ReceiveTimeout = SocketTimeoutMs;
 
-                // Get a client stream for reading and writing.
-                //  Stream stream = client.GetStream();
+                    using (NetworkStream stream = client.GetStream())
+                    {
+                        Byte[] data = Encoding.ASCII.GetBytes(message);
+                        stream.Write(data, 0, data.Length);
 
-                NetworkStream stream = client.GetStream();
-
-                // Send the message to the connected TcpServer.
-                stream.Write(data, 0, data.Length);
-
-                // Console.WriteLine("Sent: {0}", message);
-
-                // Receive the TcpServer.response.
-
-                // Buffer to store the response bytes.
-                data = new Byte[256];
-
-                // String to store the response ASCII representation.
-                String responseData = String.Empty;
-
-                // Read the first batch of the TcpServer response bytes.
-                Int32 bytes = stream.Read(data, 0, data.Length);
-                responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
-                // Console.WriteLine("Received: {0}", responseData);
-
-                // Close everything.
-                stream.Close();
-                client.Close();
-
-                return responseData;
+                        data = new Byte[1024];
+                        int bytes = stream.Read(data, 0, data.Length);
+                        String responseData = Encoding.ASCII.GetString(data, 0, bytes);
+                        return responseData;
+                    }
+                }
             }
             catch (ArgumentNullException e)
             {
-                // Console.WriteLine("ArgumentNullException: {0}", e);
                 return e.Message;
             }
             catch (SocketException e)
             {
-                // Console.WriteLine("SocketException: {0}", e);
                 return e.Message;
             }
-            
+            catch (Exception e)
+            {
+                return e.Message;
+            }
         }
-
-        
-
-
-
     }
-        
-
 }
