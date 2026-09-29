@@ -40,6 +40,19 @@ namespace FanPlugin.Wrapper.Tests
         }
 
         [TestMethod]
+        public void PlayVideoWithId_ReturnsRangeErrorWithoutSendingSelection()
+        {
+            using (var server = new Fan20320LoopbackServer(CreateFilesWithIdAtIndex(5, 256)))
+            {
+                var fan = CreateFan(server.Port);
+
+                Assert.AreEqual("Video ID 5 is beyond the fan selection index range.", fan.playVideoWithId("5"));
+                server.WaitForCompletion();
+                Assert.IsNull(server.SelectionCommand);
+            }
+        }
+
+        [TestMethod]
         public void PlayVideoWithId_RejectsInvalidIdBeforeNetworkAccess()
         {
             var fan = new Fan20320 { ServerIp = "", ServerPort = 0 };
@@ -189,6 +202,17 @@ namespace FanPlugin.Wrapper.Tests
             var copy = new byte[length];
             Buffer.BlockCopy(source, offset, copy, 0, length);
             return copy;
+        }
+
+        private static string[] CreateFilesWithIdAtIndex(int videoId, int index)
+        {
+            var files = new string[index + 1];
+            for (int fileIndex = 0; fileIndex < files.Length; fileIndex++)
+            {
+                files[fileIndex] = (fileIndex + 1000).ToString("D6") + ".bin";
+            }
+            files[index] = videoId.ToString("D6") + ".bin";
+            return files;
         }
     }
 }

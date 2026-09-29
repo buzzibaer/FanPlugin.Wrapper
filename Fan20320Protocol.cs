@@ -102,6 +102,19 @@ namespace FanPlugin.Wrapper
             return false;
         }
 
+        internal static bool ContainsFile(string[] files, int videoId)
+        {
+            string expectedName = videoId.ToString("D6") + ".bin";
+            for (int i = 0; i < files.Length; i++)
+            {
+                if (string.Equals(files[i], expectedName, StringComparison.OrdinalIgnoreCase))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         private static bool HasMarker(byte[] frame, int offset, byte[] marker)
         {
             for (int index = 0; index < marker.Length; index++)

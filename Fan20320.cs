@@ -37,6 +37,10 @@ namespace FanPlugin.Wrapper
             int index;
             if (!Fan20320Protocol.TryFindFileIndex(files, videoId, out index))
             {
+                if (Fan20320Protocol.ContainsFile(files, videoId))
+                {
+                    return "Video ID " + videoId + " is beyond the fan selection index range.";
+                }
                 return "Video ID " + videoId + " not found on fan.";
             }
 
