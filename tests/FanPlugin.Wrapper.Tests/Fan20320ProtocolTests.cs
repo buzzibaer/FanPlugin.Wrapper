@@ -63,6 +63,46 @@ namespace FanPlugin.Wrapper.Tests
             Assert.IsFalse(Fan20320Protocol.TryParseFileList(new byte[0], out files));
         }
 
+        [TestMethod]
+        public void TryFindFileIndex_UsesPaddedFilenameRatherThanIdAsIndex()
+        {
+            int index;
+
+            bool found = Fan20320Protocol.TryFindFileIndex(
+                new[] { "000001.bin", "000005.bin", "000010.bin" },
+                5,
+                out index);
+
+            Assert.IsTrue(found);
+            Assert.AreEqual(1, index);
+        }
+
+        [TestMethod]
+        public void TryFindFileIndex_ReturnsFalseForAbsentFile()
+        {
+            int index;
+
+            bool found = Fan20320Protocol.TryFindFileIndex(new[] { "000001.bin" }, 5, out index);
+
+            Assert.IsFalse(found);
+        }
+
+        [TestMethod]
+        public void TryFindFileIndex_RejectsIndexOutsideSingleByteRange()
+        {
+            var files = new string[257];
+            int index;
+
+            for (int i = 0; i < files.Length; i++)
+            {
+                files[i] = i.ToString("D6") + ".bin";
+            }
+
+            bool found = Fan20320Protocol.TryFindFileIndex(files, 256, out index);
+
+            Assert.IsFalse(found);
+        }
+
         private static byte[] BuildFileListResponse(params string[] names)
         {
             var payload = new List<byte> { (byte)'i' };

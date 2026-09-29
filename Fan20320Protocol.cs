@@ -80,6 +80,28 @@ namespace FanPlugin.Wrapper
             return true;
         }
 
+        internal static bool TryFindFileIndex(string[] files, int videoId, out int index)
+        {
+            index = -1;
+            string expectedName = videoId.ToString("D6") + ".bin";
+
+            for (int i = 0; i < files.Length; i++)
+            {
+                if (string.Equals(files[i], expectedName, StringComparison.OrdinalIgnoreCase))
+                {
+                    if (i > byte.MaxValue)
+                    {
+                        return false;
+                    }
+
+                    index = i;
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         private static bool HasMarker(byte[] frame, int offset, byte[] marker)
         {
             for (int index = 0; index < marker.Length; index++)
