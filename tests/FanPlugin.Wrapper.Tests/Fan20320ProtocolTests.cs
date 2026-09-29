@@ -85,6 +85,7 @@ namespace FanPlugin.Wrapper.Tests
             bool found = Fan20320Protocol.TryFindFileIndex(new[] { "000001.bin" }, 5, out index);
 
             Assert.IsFalse(found);
+            Assert.AreEqual(-1, index);
         }
 
         [TestMethod]
@@ -101,6 +102,7 @@ namespace FanPlugin.Wrapper.Tests
             bool found = Fan20320Protocol.TryFindFileIndex(files, 256, out index);
 
             Assert.IsFalse(found);
+            Assert.AreEqual(-1, index);
         }
 
         private static byte[] BuildFileListResponse(params string[] names)
