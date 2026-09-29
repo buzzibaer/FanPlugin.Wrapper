@@ -1,11 +1,44 @@
     //'********PupB2S Scripting JSCRIPT
 
+    // Select the fan hardware implementation: 2 = Fan, 3 = FanV3.
+    var FAN_HARDWARE_VERSION = 2;
+    // Optional overrides. Empty IP / port 0 keeps the selected class defaults.
+    var FAN_SERVER_IP_OVERRIDE = "";
+    var FAN_SERVER_PORT_OVERRIDE = 0;
+    // Timeout overrides in milliseconds. Zero keeps the class default.
+    var FAN_CONNECT_TIMEOUT_OVERRIDE = 0;
+    var FAN_SOCKET_TIMEOUT_OVERRIDE = 0;
+
+    function CreateFan() {
+        var fan;
+        if (FAN_HARDWARE_VERSION == 2) {
+            fan = new ActiveXObject("FanPlugin.Wrapper.Fan");
+        } else if (FAN_HARDWARE_VERSION == 3) {
+            fan = new ActiveXObject("FanPlugin.Wrapper.FanV3");
+        } else {
+            throw "Unsupported FAN_HARDWARE_VERSION: " + FAN_HARDWARE_VERSION;
+        }
+
+        if (FAN_SERVER_IP_OVERRIDE != "") {
+            fan.ServerIp = FAN_SERVER_IP_OVERRIDE;
+        }
+        if (FAN_SERVER_PORT_OVERRIDE > 0) {
+            fan.ServerPort = FAN_SERVER_PORT_OVERRIDE;
+        }
+        if (FAN_CONNECT_TIMEOUT_OVERRIDE > 0) {
+            fan.ConnectTimeoutMs = FAN_CONNECT_TIMEOUT_OVERRIDE;
+        }
+        if (FAN_SOCKET_TIMEOUT_OVERRIDE > 0) {
+            fan.SocketTimeoutMs = FAN_SOCKET_TIMEOUT_OVERRIDE;
+        }
+        return fan;
+    }
 
     function StartUp() {    
          //var myMsgBox=new ActiveXObject("wscript.shell");
          //myMsgBox.Popup ("hello There");
 		 
-		 var fan = new ActiveXObject("FanPlugin.Wrapper.Fan");
+		 var fan = CreateFan();
 		 fan.selectSingleVideoPlaybackMode();
 		 fan.playVideoWithId(3);
 		 
@@ -27,12 +60,12 @@
     //myMsgBox.Popup (eType +" "+ eIndex +" "+ eValue);
     
     	if (eIndex == 7 && eType == "D" && eValue == 1) {
-		var fan = new ActiveXObject("FanPlugin.Wrapper.Fan");
+		var fan = CreateFan();
 		 fan.playVideoWithId(5);
 	};
 	
 	if (eIndex == 0 && eType == "D" && eValue == 1) {
-		var fan = new ActiveXObject("FanPlugin.Wrapper.Fan");
+		var fan = CreateFan();
 		 fan.playVideoWithId(6);
 	};
 }

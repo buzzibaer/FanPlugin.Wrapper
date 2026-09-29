@@ -117,6 +117,30 @@ Download the Pupscript here = https://github.com/buzzibaer/FanPlugin.Wrapper/blo
 
 Put it in your PupPack Root Folder of your choise.
 
+#### Select the fan hardware version
+
+At the top of `pupscript_js.pup`, set `FAN_HARDWARE_VERSION` to match your fan:
+
+```js
+var FAN_HARDWARE_VERSION = 2;
+```
+
+- `2` selects `Fan` (`FanPlugin.Wrapper.Fan`, Version 2 hardware). Its default endpoint is `192.168.4.1:5233`.
+- `3` selects `FanV3` (`FanPlugin.Wrapper.FanV3`, Version 3 hardware). Its default endpoint is `192.168.4.1:5233`.
+
+The PupScript uses the selected implementation for startup and all configured table/ROM events. Each class keeps its own version-specific default address and port. Both variants use a default connect timeout of 3000 ms and read/write timeout of 3000 ms. Leave optional overrides empty/zero to use the selected class defaults, or set them near the top of the script to override the endpoint and timeouts:
+
+```js
+var FAN_SERVER_IP_OVERRIDE = "192.168.4.1";
+var FAN_SERVER_PORT_OVERRIDE = 5233;
+var FAN_CONNECT_TIMEOUT_OVERRIDE = 3000;
+var FAN_SOCKET_TIMEOUT_OVERRIDE = 3000;
+```
+
+Invalid video IDs (anything other than a decimal value from `0` to `99`) are rejected before the wrapper contacts the fan or updates playback history. Network failures and timeouts are returned to PupScript callers as error strings.
+
+Both classes are included in the wrapper project; make sure the registered `FanPlugin.Wrapper.dll` is built from a version that includes `FanV3.cs` before selecting version `3`.
+
 Edit the Script for the bin file you want to select on your fan.
 
 ![explain pic](https://github.com/buzzibaer/FanPlugin.Wrapper/blob/main/docmedia/install9.png)

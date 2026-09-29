@@ -42,6 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Fan.cs" />
+    <Compile Include="FanTcpTransport.cs" />
+    <Compile Include="FanVideoId.cs" />
+    <Compile Include="FanV3.cs" />
     <Compile Include="NetSharedMemory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
