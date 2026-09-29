@@ -16,11 +16,9 @@ namespace FanPlugin.Wrapper
                 throw new ArgumentOutOfRangeException("command");
             }
 
-            int remainder = command.Length;
-            byte firstLengthByte = (byte)(98 + (remainder / 323));
-            remainder %= 323;
-            byte secondLengthByte = (byte)(99 + (remainder / 17));
-            byte thirdLengthByte = (byte)(98 + (remainder % 17));
+            byte firstLengthByte = (byte)(command.Length / 323);
+            byte secondLengthByte = (byte)(((command.Length / 17) % 19) + 99);
+            byte thirdLengthByte = (byte)(((command.Length % 323) % 17) + 98);
             byte[] frame = new byte[StartMarker.Length + 3 + command.Length + EndMarker.Length];
 
             Buffer.BlockCopy(StartMarker, 0, frame, 0, StartMarker.Length);
@@ -41,12 +39,12 @@ namespace FanPlugin.Wrapper
                 return false;
             }
 
-            if (frame[12] < 98 || frame[13] < 99 || frame[14] < 98)
+            if (frame[13] < 99 || frame[13] > 117 || frame[14] < 98 || frame[14] > 114)
             {
                 return false;
             }
 
-            int payloadLength = (frame[12] - 98) * 323
+            int payloadLength = frame[12] * 323
                 + (frame[13] - 99) * 17
                 + (frame[14] - 98);
             int expectedLength = StartMarker.Length + 3 + payloadLength + EndMarker.Length;

@@ -14,7 +14,7 @@ namespace FanPlugin.Wrapper.Tests
             byte[] frame = Fan20320Protocol.BuildCommandFrame(new[] { (byte)'e' });
 
             CollectionAssert.AreEqual(Encoding.ASCII.GetBytes("C0EEB7C9BAA3"), Copy(frame, 0, 12));
-            CollectionAssert.AreEqual(new byte[] { 98, 99, 99 }, Copy(frame, 12, 3));
+            CollectionAssert.AreEqual(new byte[] { 0, 99, 99 }, Copy(frame, 12, 3));
             Assert.AreEqual((byte)'e', frame[15]);
             CollectionAssert.AreEqual(Encoding.ASCII.GetBytes("C0EEBDF9E5B7"), Copy(frame, 16, 12));
         }
@@ -33,6 +33,7 @@ namespace FanPlugin.Wrapper.Tests
             byte[] frame = BuildFileListResponse("000001.bin", "000005.bin");
             string[] files;
 
+            Assert.AreEqual((byte)0, frame[12]);
             Assert.IsTrue(Fan20320Protocol.TryParseFileList(frame, out files));
             CollectionAssert.AreEqual(new[] { "000001.bin", "000005.bin" }, files);
         }
@@ -60,11 +61,9 @@ namespace FanPlugin.Wrapper.Tests
             payload.Add(1);
             payload.AddRange(new byte[15]);
             int payloadLength = payload.Count;
-            int remainder = payloadLength;
-            byte firstLengthByte = (byte)(98 + (remainder / 323));
-            remainder %= 323;
-            byte secondLengthByte = (byte)(99 + (remainder / 17));
-            byte thirdLengthByte = (byte)(98 + (remainder % 17));
+            byte firstLengthByte = (byte)(payloadLength / 323);
+            byte secondLengthByte = (byte)(((payloadLength / 17) % 19) + 99);
+            byte thirdLengthByte = (byte)(((payloadLength % 323) % 17) + 98);
             byte[] frame = new byte[12 + 3 + payloadLength + 12];
 
             Buffer.BlockCopy(Encoding.ASCII.GetBytes("C0EEB7C9BAA3"), 0, frame, 0, 12);
