@@ -8,9 +8,13 @@
     // Timeout overrides in milliseconds. Zero keeps the class default.
     var FAN_CONNECT_TIMEOUT_OVERRIDE = 0;
     var FAN_SOCKET_TIMEOUT_OVERRIDE = 0;
+    var fan;
 
     function CreateFan() {
-        var fan;
+        if (fan != null) {
+            return fan;
+        }
+
         if (FAN_HARDWARE_VERSION == 2) {
             fan = new ActiveXObject("FanPlugin.Wrapper.Fan");
         } else if (FAN_HARDWARE_VERSION == 3) {
