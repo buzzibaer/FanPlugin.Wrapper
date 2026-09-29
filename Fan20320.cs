@@ -14,11 +14,62 @@ namespace FanPlugin.Wrapper
         private TcpClient client;
         private NetworkStream stream;
         private string[] files;
+        private string serverIp = DefaultServerIp;
+        private int serverPort = DefaultServerPort;
+        private int connectTimeoutMs = 3000;
+        private int socketTimeoutMs = 3000;
 
-        public string ServerIp { get; set; } = DefaultServerIp;
-        public int ServerPort { get; set; } = DefaultServerPort;
-        public int ConnectTimeoutMs { get; set; } = 3000;
-        public int SocketTimeoutMs { get; set; } = 3000;
+        public string ServerIp
+        {
+            get { return serverIp; }
+            set
+            {
+                if (!string.Equals(serverIp, value, StringComparison.Ordinal))
+                {
+                    serverIp = value;
+                    CloseSession();
+                }
+            }
+        }
+
+        public int ServerPort
+        {
+            get { return serverPort; }
+            set
+            {
+                if (serverPort != value)
+                {
+                    serverPort = value;
+                    CloseSession();
+                }
+            }
+        }
+
+        public int ConnectTimeoutMs
+        {
+            get { return connectTimeoutMs; }
+            set
+            {
+                if (connectTimeoutMs != value)
+                {
+                    connectTimeoutMs = value;
+                    CloseSession();
+                }
+            }
+        }
+
+        public int SocketTimeoutMs
+        {
+            get { return socketTimeoutMs; }
+            set
+            {
+                if (socketTimeoutMs != value)
+                {
+                    socketTimeoutMs = value;
+                    CloseSession();
+                }
+            }
+        }
 
         public string playVideoWithId(string videoID)
         {

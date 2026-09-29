@@ -27,6 +27,41 @@ namespace FanPlugin.Wrapper.Tests
         }
 
         [TestMethod]
+        public void ChangingServerPort_ClosesSessionAndConnectsToNewListener()
+        {
+            using (var firstServer = new Fan20320LoopbackServer(new[] { "000001.bin" }))
+            using (var secondServer = new Fan20320LoopbackServer(new[] { "000001.bin" }))
+            {
+                var fan = CreateFan(firstServer.Port);
+
+                Assert.AreEqual("Command successfull", fan.playVideoWithId("1"));
+                fan.ServerPort = secondServer.Port;
+                Assert.AreEqual("Command successfull", fan.playVideoWithId("1"));
+
+                firstServer.WaitForCompletion();
+                secondServer.WaitForCompletion();
+                Assert.AreEqual(1, firstServer.HandshakeCount);
+                Assert.AreEqual(1, secondServer.HandshakeCount);
+            }
+        }
+
+        [TestMethod]
+        public void SettingServerPortToSameValue_PreservesActiveSession()
+        {
+            using (var server = new Fan20320LoopbackServer(new[] { "000001.bin" }, 2))
+            {
+                var fan = CreateFan(server.Port);
+
+                Assert.AreEqual("Command successfull", fan.playVideoWithId("1"));
+                fan.ServerPort = server.Port;
+                Assert.AreEqual("Command successfull", fan.playVideoWithId("1"));
+
+                server.WaitForCompletion();
+                Assert.AreEqual(1, server.HandshakeCount);
+            }
+        }
+
+        [TestMethod]
         public void PlayVideoWithId_ReturnsNotFoundWithoutSendingSelection()
         {
             using (var server = new Fan20320LoopbackServer(new[] { "000001.bin" }))
@@ -126,9 +161,11 @@ namespace FanPlugin.Wrapper.Tests
         {
             private readonly TcpListener listener;
             private readonly Task serverTask;
+            private readonly int expectedSelections;
 
-            internal Fan20320LoopbackServer(string[] files)
+            internal Fan20320LoopbackServer(string[] files, int expectedSelections = 1)
             {
+                this.expectedSelections = expectedSelections;
                 listener = new TcpListener(IPAddress.Loopback, 0);
                 listener.Start();
                 Port = ((IPEndPoint)listener.LocalEndpoint).Port;
@@ -137,6 +174,7 @@ namespace FanPlugin.Wrapper.Tests
 
             internal int Port { get; private set; }
             internal byte[] SelectionCommand { get; private set; }
+            internal int HandshakeCount { get; private set; }
 
             internal void WaitForCompletion()
             {
@@ -147,7 +185,14 @@ namespace FanPlugin.Wrapper.Tests
             public void Dispose()
             {
                 listener.Stop();
-                serverTask.Wait(3000);
+                try
+                {
+                    serverTask.Wait(3000);
+                }
+                catch (AggregateException)
+                {
+                    // Stopping the listener cancels a pending accept during failed test cleanup.
+                }
             }
 
             private void Serve(string[] files)
@@ -156,20 +201,25 @@ namespace FanPlugin.Wrapper.Tests
                 using (NetworkStream stream = client.GetStream())
                 {
                     CollectionAssert.AreEqual(Fan20320Protocol.BuildCommandFrame(new byte[0]), ReadFrame(stream));
+                    HandshakeCount++;
 
                     byte[] response = BuildFileListResponse(files);
                     stream.Write(response, 0, 9);
                     stream.Write(response, 9, response.Length - 9);
 
                     stream.ReadTimeout = 500;
-                    try
+                    for (int selection = 0; selection < expectedSelections; selection++)
                     {
-                        byte[] selectionFrame = ReadFrame(stream);
-                        SelectionCommand = Copy(selectionFrame, 15, selectionFrame.Length - 27);
-                    }
-                    catch (IOException)
-                    {
-                        // No selection is expected when the requested file is absent.
+                        try
+                        {
+                            byte[] selectionFrame = ReadFrame(stream);
+                            SelectionCommand = Copy(selectionFrame, 15, selectionFrame.Length - 27);
+                        }
+                        catch (IOException)
+                        {
+                            // No selection is expected when the requested file is absent.
+                            break;
+                        }
                     }
                 }
             }
