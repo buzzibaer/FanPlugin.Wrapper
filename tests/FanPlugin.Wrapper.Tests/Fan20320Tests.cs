@@ -92,6 +92,16 @@ namespace FanPlugin.Wrapper.Tests
             StringAssert.Contains(pupScript, "FanPlugin.Wrapper.Fan20320");
         }
 
+        [TestMethod]
+        public void PupScript_StartUpSkipsSingleVideoModeForFan20320()
+        {
+            string repositoryRoot = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", ".."));
+            string pupScript = File.ReadAllText(Path.Combine(repositoryRoot, "pupscript", "pupscript_js.pup")).Replace("\r\n", "\n");
+
+            StringAssert.Contains(pupScript,
+                "if (FAN_HARDWARE_VERSION != 20320) {\n\t\t\t fan.selectSingleVideoPlaybackMode();\n\t\t }");
+        }
+
         private static Fan20320 CreateFan(int port)
         {
             return new Fan20320

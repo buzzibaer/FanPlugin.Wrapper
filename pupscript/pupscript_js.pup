@@ -41,7 +41,9 @@
          //myMsgBox.Popup ("hello There");
 		 
 		 var fan = CreateFan();
-		 fan.selectSingleVideoPlaybackMode();
+		 if (FAN_HARDWARE_VERSION != 20320) {
+			 fan.selectSingleVideoPlaybackMode();
+		 }
 		 fan.playVideoWithId(3);
 		 
     }
