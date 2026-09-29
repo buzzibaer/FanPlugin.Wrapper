@@ -82,6 +82,16 @@ namespace FanPlugin.Wrapper.Tests
             }
         }
 
+        [TestMethod]
+        public void PupScript_ExposesFan20320HardwareSelection()
+        {
+            string repositoryRoot = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", ".."));
+            string pupScript = File.ReadAllText(Path.Combine(repositoryRoot, "pupscript", "pupscript_js.pup"));
+
+            StringAssert.Contains(pupScript, "FAN_HARDWARE_VERSION == 20320");
+            StringAssert.Contains(pupScript, "FanPlugin.Wrapper.Fan20320");
+        }
+
         private static Fan20320 CreateFan(int port)
         {
             return new Fan20320

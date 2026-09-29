@@ -127,6 +127,7 @@ var FAN_HARDWARE_VERSION = 2;
 
 - `2` selects `Fan` (`FanPlugin.Wrapper.Fan`, Version 2 hardware). Its default endpoint is `192.168.4.1:5233`.
 - `3` selects `FanV3` (`FanPlugin.Wrapper.FanV3`, Version 3 hardware). Its default endpoint is `192.168.4.1:5233`.
+- `20320` selects `Fan20320` (`FanPlugin.Wrapper.Fan20320`), which uses the Android-app protocol at `192.168.4.1:20320`. It selects an existing file by the numeric ID in its six-digit filename: `playVideoWithId(5)` selects `000005.bin`. The wrapper sends the fan's internal file-list position; callers must not pass that position. Media upload is not implemented.
 
 The PupScript uses the selected implementation for startup and all configured table/ROM events. Each class keeps its own version-specific default address and port. Both variants use a default connect timeout of 3000 ms and read/write timeout of 3000 ms. Leave optional overrides empty/zero to use the selected class defaults, or set them near the top of the script to override the endpoint and timeouts:
 

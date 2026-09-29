@@ -1,6 +1,6 @@
     //'********PupB2S Scripting JSCRIPT
 
-    // Select the fan hardware implementation: 2 = Fan, 3 = FanV3.
+    // Select the fan hardware implementation: 2 = Fan, 3 = FanV3, 20320 = Fan20320.
     var FAN_HARDWARE_VERSION = 2;
     // Optional overrides. Empty IP / port 0 keeps the selected class defaults.
     var FAN_SERVER_IP_OVERRIDE = "";
@@ -15,6 +15,8 @@
             fan = new ActiveXObject("FanPlugin.Wrapper.Fan");
         } else if (FAN_HARDWARE_VERSION == 3) {
             fan = new ActiveXObject("FanPlugin.Wrapper.FanV3");
+        } else if (FAN_HARDWARE_VERSION == 20320) {
+            fan = new ActiveXObject("FanPlugin.Wrapper.Fan20320");
         } else {
             throw "Unsupported FAN_HARDWARE_VERSION: " + FAN_HARDWARE_VERSION;
         }
