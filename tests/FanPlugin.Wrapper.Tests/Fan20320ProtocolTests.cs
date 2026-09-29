@@ -27,6 +27,23 @@ namespace FanPlugin.Wrapper.Tests
             Assert.AreEqual((byte)1, frame[16]);
         }
 
+        [DataTestMethod]
+        [DataRow(17, 0, 100, 98)]
+        [DataRow(323, 1, 99, 98)]
+        [DataRow(324, 1, 99, 99)]
+        public void BuildCommandFrame_UsesExpectedLengthBytesAtBoundaries(
+            int payloadLength,
+            int firstLengthByte,
+            int secondLengthByte,
+            int thirdLengthByte)
+        {
+            byte[] frame = Fan20320Protocol.BuildCommandFrame(new byte[payloadLength]);
+
+            CollectionAssert.AreEqual(
+                new[] { (byte)firstLengthByte, (byte)secondLengthByte, (byte)thirdLengthByte },
+                Copy(frame, 12, 3));
+        }
+
         [TestMethod]
         public void TryParseFileList_ParsesOrderedNamesAndStatusSuffix()
         {
